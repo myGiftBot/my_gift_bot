@@ -7,9 +7,8 @@ import flask
 
 if 'TOKEN' in os.environ:
     TOKEN = os.environ.get("TOKEN")
-    app = flask.Flask(__name__)
-    WEBHOOK_HOST = '<ip/host where the bot is running>'
-    WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
+    WEBHOOK_HOST = 'https://my-gift-bot.herokuapp.com/'
+    WEBHOOK_PORT = int(os.environ.get("PORT", 5000))
     WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
     WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
     WEBHOOK_URL_PATH = "/%s/" % TOKEN
@@ -20,6 +19,7 @@ else:
     telebot.apihelper.proxy = {'https': 'socks5://211299130:Okrv20YQ@orbtl.s5.opennetwork.cc:999'}
 
 bot = telebot.TeleBot(TOKEN)
+app = flask.Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'HEAD'])
