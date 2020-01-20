@@ -51,7 +51,7 @@ def echo_message(message):
 
 
 if __name__ == '__main__':
-    if 'TOKEN' in os.environ:
+    if 'TOKE' in os.environ:
         bot.remove_webhook()
         time.sleep(0.1)
         bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH)
