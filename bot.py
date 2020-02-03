@@ -12,12 +12,17 @@ else:
 
 bot = telebot.TeleBot(TOKEN)
 
+
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     bot.reply_to(message,
                  ("Hi there, I am EchoBot.\n"
                   "I am here to echo your kind words back to you."))
 
+@bot.message_handler(commands=['balance'])
+def send_balance(message):
+    from balance import check_balance
+    bot.reply_to(message, check_balance())
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def echo_message(message):
