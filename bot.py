@@ -32,7 +32,7 @@ if __name__ == '__main__':
         server = flask.Flask(__name__)
 
 
-        @server.route("/bot", methods=['POST'])
+        @server.route('/' + TOKEN, methods=['POST'])
         def getMessage():
             bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
             return "!", 200
@@ -41,9 +41,8 @@ if __name__ == '__main__':
         @server.route("/")
         def webhook():
             bot.remove_webhook()
-            bot.set_webhook(
-                url=os.environ.get("APP_URL"))  # этот url нужно заменить на url вашего Хероку приложения
-            return "?", 200
+            bot.set_webhook(url=os.environ.get("APP_URL") + TOKEN)
+            return "!", 200
 
 
         server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
