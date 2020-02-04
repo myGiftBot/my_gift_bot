@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 def check_balance():
     import json
     import requests
@@ -38,5 +40,4 @@ def check_balance():
     return respstr
 
 if __name__ == '__main__':
-    import os
     print(check_balance())
