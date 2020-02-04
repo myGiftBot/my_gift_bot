@@ -47,7 +47,7 @@ if __name__ == '__main__':
         def webhook():
             bot.remove_webhook()
             bot.set_webhook(url=os.environ.get("APP_URL") + TOKEN)
-            return "!", 200
+            return "Hello!", 200
 
 
         server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))

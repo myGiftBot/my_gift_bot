@@ -4,7 +4,12 @@ def check_balance():
     import json
     import requests
 
-    url = 'https://mygift.gift-cards.ru/api/1/cards/2051023646872'
+    if 'CARD_ID' in os.environ:
+        CARD_ID = os.environ.get("CARD_ID")
+    else:
+        from config import CARD_ID
+
+    url = 'https://mygift.gift-cards.ru/api/1/cards/' + CARD_ID
 
     params = {'limit': '100',
               'rid': '8905a422dd328'}
@@ -33,4 +38,5 @@ def check_balance():
     return respstr
 
 if __name__ == '__main__':
+    import os
     print(check_balance())
