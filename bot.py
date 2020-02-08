@@ -22,7 +22,7 @@ def send_welcome(message):
     #               "I am here to echo your kind words back to you."))
     # keyboard
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    item1 = types.KeyboardButton("🎲Баланс")
+    item1 = types.KeyboardButton("Баланс")
     # item2 = types.KeyboardButton("😊 Как дела?")
 
     markup.add(item1)
@@ -43,7 +43,7 @@ def send_balance(message):
 @bot.message_handler(content_types=['text'])
 def lalala(message):
     if message.chat.type == 'private':
-        if message.text == '🎲Баланс':
+        if message.text == "Баланс":
             from balance import check_balance
             bot.send_message(message.chat.id, check_balance())
 
