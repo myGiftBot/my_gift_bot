@@ -5,6 +5,8 @@ import os
 import flask
 import logging
 
+from telebot import types
+
 if 'TOKEN' in os.environ:
     TOKEN = os.environ.get("TOKEN")
 else:
@@ -15,18 +17,35 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message,
-                 ("Hi there, I am EchoBot.\n"
-                  "I am here to echo your kind words back to you."))
+    # bot.reply_to(message,
+    #              ("Hi there, I am EchoBot.\n"
+    #               "I am here to echo your kind words back to you."))
+    # keyboard
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    item1 = types.KeyboardButton("🎲Баланс")
+    # item2 = types.KeyboardButton("😊 Как дела?")
+
+    markup.add(item1)
+
+    bot.send_message(message.chat.id,
+                     "Добро пожаловать, {0.first_name}!\n"
+                     "Я - <b>{1.first_name}</b>, бот созданный чтобы быть подопытным кроликом.".format(
+                         message.from_user, bot.get_me()),
+                     parse_mode='html', reply_markup=markup)
+
 
 @bot.message_handler(commands=['balance'])
 def send_balance(message):
     from balance import check_balance
     bot.reply_to(message, check_balance())
 
-@bot.message_handler(func=lambda message: True, content_types=['text'])
-def echo_message(message):
-    bot.reply_to(message, message.text)
+
+@bot.message_handler(content_types=['text'])
+def lalala(message):
+    if message.chat.type == 'private':
+        if message.text == '🎲Баланс':
+            from balance import check_balance
+            bot.send_message(message.chat.id, check_balance())
 
 
 if __name__ == '__main__':
