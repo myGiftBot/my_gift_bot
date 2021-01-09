@@ -35,7 +35,7 @@ def check_balance():
 
     r = requests.get(url, params=params, headers=headers, timeout=10)
     response = json.loads(r.text)
-    respstr = f"{response['data']['balance']['availableAmount']} {response['data']['balance']['currency']}"
+    respstr = f"{response['data']['balance']['availableAmount']}"
 
     return respstr
 
